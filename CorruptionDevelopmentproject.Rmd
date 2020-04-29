@@ -4,20 +4,22 @@ author: "Gabriel Correa"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
-##Introduction
+## Introduction
 
 Recent political happenings have generated a number of questions about the use of public office for personal gain. Are these types of acts more or less like to occur in different governments and ,if so, under what circumstances? The inspiration for this project came from an article in the Economist titled "Corrosive Corruption". I will use data from Transparency International's Corruption Perceptions Index and the UN's Human Development Index to investigate this research question. 
 
-#Data
+# Data
 
 The Corruption Perceptions Index provides data on about 180 countries and territories. This data is in the form of rankings based on information acquired from experts and business people. (www.transparency.org)
 The second part of the data used comes from the UN's Human Development Index. The Human Development Index is a measure combining various factors such as health, wealth and education. (hdr.undp.org) 
 The data have been aggregated by country. The analysis will focus on the relationship (if any) between Humand Development Index (HDI) and Corruption Perception Index (CPI). 
 
-##Analysis
+## Analysis
+
+The first scatter plot shows the variables CPI on the x-axis and HPI on the y-axis. Each point is color-coded by Region: Americas, Asia Pacific, East Europe and Central Asia (East EU Cent Asia), West Europe (EU W. Europe), Middle East and North Africa (MENA) and Sub-Saharan Africa (SSA).
 
 ```{r Plot}
 library(plotly)
@@ -45,7 +47,8 @@ p <- plot_ly(data=df,
 p
 ```
 
-Adding a trend line to the data above produces the following:
+The plot shows evidence that there is a trend in the points. 
+Using R, a regression line was constructed using HDI as the dependent variable and CPI as the independent variable. This line was added to the above scatter plot and produces the following:
 
 ```{r Scatter plot with regression line}
 library(plotly)
@@ -74,13 +77,18 @@ p <- plot_ly(data=df,
 p
 ```
 
-An $R^2$ value of about 0.49 was calculated for the fit line. 
+An $R^2$ value of about 0.49 was calculated for the fit line. Among the countries and regions New Zealand stands out as highly developed and very low corruption perception. The Congo has an opposite position along with many other Sub-Saharn countries. 
 
-#Conclusion
-In conclusion, there does seem to be some evidence of a correlation between the Corruption Perception Index and the Human Development Index. 
+# Conclusion
 
+In conclusion, there does seem to be some evidence of a correlation between the Corruption Perception Index and the Human Development Index. Furthermore, the linear model fitted onto the data suggests a positive correlation between CPI and HDI. It is possible that another model, i.e. logarithmic, might fit the data better, but that is for future investigation since the goal of this analysis is not predictive. 
+Future analysis should also compare the indices over time. This data set only looks at a snapshot of data from a single year. It would be interesting to compare the change in indices over the years. 
 
-##References
+## References
 
+* Corrosive Corruption. The Economist. https://www.economist.com/graphic-detail/2011/12/02/corrosive-corruption
+* Transparency International Corruption Perceptions Index. https://www.transparency.org/cpi2019
+* United Nations Development Programme. Human Development Reports. http://hdr.undp.org/en/data
+* James, G., Witten, D. et. al. An Introduction to Statistical Learning with Applications in R. https://faculty.marshall.usc.edu/gareth-james/ISL/
 
 
