@@ -29,22 +29,55 @@ p <- plot_ly(data=df,
              y=~HDI,
              type = "scatter",
              mode = "markers",
+             hoverinfo = "text",
+             text = paste("CPI: ", df$CPI,
+                          "<br>",
+                          "HDI: ", df$HDI,
+                          "<br>",
+                          "Country: ", df$Country),
              marker = list(size=7),
              color = ~as.factor(Region)) %>%
+  
   layout(title = "Corruption vs. Development Scatterplot",
          xaxis = list(title="Corruption Perception Index, (10=least corrupt)"),
          yaxis = list(title="Human Development Index, (1=Best)"))
 
-   
 p
 ```
 
-#Descriptive 
+Adding a trend line to the data above produces the following:
 
+```{r Scatter plot with regression line}
+library(plotly)
+library(data.table)
+df <- fread('Economist_Data.csv', drop=1) #drop first column of data set.
+fit <- lm(HDI ~ CPI, data=df)
+p <- plot_ly(data=df, 
+             x=~CPI, 
+             y=~HDI,
+             type = "scatter",
+             mode = "markers",
+             hoverinfo = "text",
+             text = paste("CPI: ", df$CPI,
+                          "<br>",
+                          "HDI: ", df$HDI,
+                          "<br>",
+                          "Country: ", df$Country),
+             marker = list(size=7),
+             color = ~as.factor(Region)) %>%
+  add_lines(x=~CPI, y=fitted(fit))%>%
+  
+  layout(title = "Corruption vs. Development Scatterplot",
+         xaxis = list(title="Corruption Perception Index, (10=least corrupt)"),
+         yaxis = list(title="Human Development Index, (1=Best)"))
 
+p
+```
+
+An $R^2$ value of about 0.49 was calculated for the fit line. 
 
 #Conclusion
-
+In conclusion, there does seem to be some evidence of a correlation between the Corruption Perception Index and the Human Development Index. 
 
 
 ##References
