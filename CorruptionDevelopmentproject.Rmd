@@ -21,10 +21,13 @@ The data have been aggregated by country. The analysis will focus on the relatio
 
 The first scatter plot shows the variables CPI on the x-axis and HPI on the y-axis. Each point is color-coded by Region: Americas, Asia Pacific, East Europe and Central Asia (East EU Cent Asia), West Europe (EU W. Europe), Middle East and North Africa (MENA) and Sub-Saharan Africa (SSA).
 
-```{r Plot}
+```{r Plot, message=FALSE, warning=FALSE}
 library(plotly)
 library(data.table)
-df <- fread('Economist_Data.csv', drop=1) #drop first column of data set.
+library(repmis)
+
+df <- source_data("https://github.com/corrg/STA6233Project/raw/master/Economist_Data.csv")
+df <- df[-1,] #drop first column of data set.
 
 p <- plot_ly(data=df, 
              x=~CPI, 
@@ -50,10 +53,10 @@ p
 The plot shows evidence that there is a trend in the points. 
 Using R, a regression line was constructed using HDI as the dependent variable and CPI as the independent variable. This line was added to the above scatter plot and produces the following:
 
-```{r Scatter plot with regression line}
+```{r Scatter plot with regression line, message=FALSE, warning=FALSE}
 library(plotly)
 library(data.table)
-df <- fread('Economist_Data.csv', drop=1) #drop first column of data set.
+
 fit <- lm(HDI ~ CPI, data=df)
 p <- plot_ly(data=df, 
              x=~CPI, 
